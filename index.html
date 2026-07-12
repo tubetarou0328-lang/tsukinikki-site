@@ -3,36 +3,407 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ツキ日記 | サポート・プライバシーポリシー</title>
+  <title>ツキ日記 | 書くほど運を呼ぶ、毎日3分の日記アプリ</title>
+  <meta name="description" content="66日で、運を書きかえる。月の巡りにあわせて書く、毎日3分の日記アプリ。書くほど運を引き寄せる。無料ではじめる。" />
+  <meta property="og:title" content="ツキ日記 | 66日で、運を書きかえる" />
+  <meta property="og:description" content="月の巡りにあわせて書く、毎日3分の日記アプリ。書くほど運を呼ぶ。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://tubetarou0328-lang.github.io/tsukinikki-site/img/02_home.png" />
+  <meta name="theme-color" content="#1a1530" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍀</text></svg>" />
   <style>
-    body { font-family: -apple-system, "Hiragino Sans", sans-serif; max-width: 640px; margin: 0 auto; padding: 32px 20px 64px; line-height: 1.9; color: #333; }
-    h1 { font-size: 1.5rem; } h2 { font-size: 1.05rem; margin-top: 2em; border-left: 4px solid #8b5cf6; padding-left: .6em; }
-    .lead { color: #666; margin-top: .5em; }
-    a { color: #8b5cf6; }
-    .btn { display:inline-block; margin-top:1.2em; padding:.7em 1.4em; background:#8b5cf6; color:#fff; text-decoration:none; border-radius:999px; font-weight:bold; }
-    ul { padding-left: 1.3em; }
-    footer { margin-top: 3em; font-size: .85rem; color: #888; }
+    :root{
+      --brand:#8b5cf6; --brand-d:#7c3aed; --brand-l:#c4b5fd;
+      --moon:#f4e9b8; --ink:#1c1533;
+      --night1:#1c1533; --night2:#2b2150; --night3:#43305e;
+      --paper:#fbfaff; --muted:#8b86a3;
+      --radius:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;
+      color:#2a2440;line-height:1.8;
+      background:var(--paper);overflow-x:hidden;
+    }
+    a{color:var(--brand-d);text-decoration:none}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+    /* ===== Nav ===== */
+    nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(28,21,51,.82);backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    nav .row{display:flex;align-items:center;justify-content:space-between;height:60px}
+    nav .logo{color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:.02em}
+    nav .links{display:flex;align-items:center;gap:20px}
+    nav .links a{color:#cfc8e6;font-size:.9rem;font-weight:600}
+    nav .links a:hover{color:#fff}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;justify-content:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-d));
+      color:#fff !important;font-weight:700;border:none;cursor:pointer;
+      padding:13px 24px;border-radius:999px;font-size:.95rem;
+      box-shadow:0 10px 26px -8px rgba(124,58,237,.7);transition:transform .15s,box-shadow .15s;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -8px rgba(124,58,237,.8)}
+    .btn.small{padding:9px 16px;font-size:.85rem}
+    .btn.ghost{background:rgba(255,255,255,.1);box-shadow:none;border:1px solid rgba(255,255,255,.2)}
+
+    /* ===== Hero ===== */
+    .hero{
+      position:relative;color:#fff;text-align:center;
+      background:linear-gradient(180deg,var(--night1) 0%,var(--night2) 60%,var(--night3) 100%);
+      padding:72px 22px 64px;overflow:hidden;
+    }
+    .stars{position:absolute;inset:0;pointer-events:none;opacity:.9}
+    .stars span{position:absolute;background:#fff;border-radius:50%;animation:tw 4s ease-in-out infinite}
+    @keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+    .hero .moon{
+      position:absolute;top:8%;right:12%;width:90px;height:90px;border-radius:50%;
+      background:radial-gradient(circle at 35% 35%,#fff6db,#f4e9b8 60%,#e6d496);
+      box-shadow:0 0 60px 12px rgba(244,233,184,.4);opacity:.85}
+    .hero h1{position:relative;font-size:clamp(2.1rem,7vw,3.6rem);font-weight:900;line-height:1.35;letter-spacing:.01em}
+    .hero h1 .grad{background:linear-gradient(120deg,#fff,#c4b5fd,#f4e9b8);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p.sub{position:relative;max-width:560px;margin:20px auto 0;font-size:1.02rem;color:#d9d3ef}
+    .hero .cta{position:relative;margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .hero .badge{position:relative;margin-top:18px;font-size:.82rem;color:#b9b1d6}
+    .phone-hero{position:relative;margin:42px auto 0;max-width:300px}
+    .phone{
+      border-radius:36px;overflow:hidden;border:8px solid #0f0a1f;
+      box-shadow:0 40px 80px -20px rgba(0,0,0,.7);background:#0f0a1f;
+      aspect-ratio:9/19;
+    }
+    .phone img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* ===== Sections ===== */
+    section{padding:80px 0}
+    .eyebrow{display:inline-block;color:var(--brand-d);font-weight:800;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+    h2.sec{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:900;line-height:1.45;color:var(--ink);letter-spacing:.01em}
+    .sec-lead{margin-top:14px;color:#6b6585;font-size:1.02rem;max-width:600px}
+    .center{text-align:center}
+    .center .sec-lead{margin-left:auto;margin-right:auto}
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    /* ===== 月めぐり ===== */
+    .laws{background:linear-gradient(180deg,#fff,#f6f3ff)}
+    .laws-grid{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+    .law{
+      background:#fff;border:1px solid #ece6ff;border-radius:var(--radius);padding:22px;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .law:hover{transform:translateY(-4px);box-shadow:0 18px 36px -16px rgba(124,58,237,.4)}
+    .law .em{font-size:1.7rem}
+    .law .phase{font-size:.74rem;color:var(--brand-d);font-weight:700;letter-spacing:.05em;margin-top:6px}
+    .law h3{font-size:1.06rem;margin:2px 0 8px;color:var(--ink)}
+    .law p{font-size:.88rem;color:#6b6585;line-height:1.7}
+
+    /* ===== How it works ===== */
+    .phases{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .phase-card{
+      background:linear-gradient(160deg,#fff,#f7f3ff);border:1px solid #ece6ff;border-radius:var(--radius);
+      padding:26px 22px;position:relative;
+    }
+    .phase-card .day{font-size:.78rem;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-d));padding:4px 12px;border-radius:999px;display:inline-block}
+    .phase-card h3{font-size:1.12rem;margin:12px 0 6px;color:var(--ink)}
+    .phase-card p{font-size:.9rem;color:#6b6585}
+    .milestones{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .ms{background:#fff;border:1px dashed var(--brand-l);border-radius:14px;padding:10px 16px;font-size:.85rem;color:#5b5680}
+    .ms b{color:var(--brand-d)}
+    .phones-row{margin-top:44px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+    .phones-row .phone{max-width:200px;flex:1 1 200px;min-width:160px}
+
+    /* ===== Features ===== */
+    .feat-grid{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+    .feat{
+      background:#fff;border:1px solid #ece6ff;border-radius:var(--radius);padding:24px;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .feat:hover{transform:translateY(-4px);box-shadow:0 18px 36px -16px rgba(124,58,237,.35)}
+    .feat .ic{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#f3edff,#e7dcff);margin-bottom:14px}
+    .feat h3{font-size:1.06rem;color:var(--ink);margin-bottom:6px}
+    .feat p{font-size:.88rem;color:#6b6585;line-height:1.7}
+
+    /* ===== Privacy（差別化） ===== */
+    .privacy{background:linear-gradient(135deg,var(--night1),var(--night2));color:#fff}
+    .privacy .eyebrow{color:var(--brand-l)}
+    .privacy h2.sec{color:#fff}
+    .privacy .sec-lead{color:#cdc6e2}
+    .priv-grid{margin-top:38px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .priv-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px}
+    .priv-card .ic{font-size:1.6rem;margin-bottom:8px}
+    .priv-card h3{font-size:1rem;margin-bottom:4px}
+    .priv-card p{font-size:.84rem;color:#b6aed0;line-height:1.7}
+
+    /* ===== 料金 ===== */
+    .price{background:linear-gradient(180deg,#f6f3ff,#fff)}
+    .price-grid{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;align-items:stretch}
+    .plan{background:#fff;border:1px solid #ece6ff;border-radius:var(--radius);padding:28px 24px;position:relative}
+    .plan.featured{border:2px solid var(--brand);box-shadow:0 24px 48px -20px rgba(124,58,237,.5)}
+    .plan .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff;font-size:.74rem;font-weight:800;padding:5px 14px;border-radius:999px;white-space:nowrap}
+    .plan h3{font-size:1rem;color:var(--ink)}
+    .plan .amount{font-size:1.9rem;font-weight:900;color:var(--ink);margin:6px 0 2px}
+    .plan .unit{font-size:.8rem;color:var(--muted)}
+    .plan ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+    .plan li{font-size:.86rem;color:#5b5680;padding-left:22px;position:relative}
+    .plan li::before{content:"✓";position:absolute;left:0;color:var(--brand-d);font-weight:800}
+
+    /* ===== Support（FAQ） ===== */
+    .support{background:#fff}
+    .faq{margin-top:38px;max-width:760px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;gap:14px}
+    .faq details{background:#f8f6ff;border:1px solid #ece6ff;border-radius:16px;padding:18px 20px}
+    .faq summary{font-weight:700;color:var(--ink);cursor:pointer;list-style:none;font-size:.96rem}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary::after{content:"+";float:right;color:var(--brand-d);font-weight:800;transition:transform .2s}
+    .faq details[open] summary::after{transform:rotate(45deg)}
+    .faq p{margin-top:10px;font-size:.9rem;color:#6b6585}
+    .support-links{margin-top:30px;text-align:center;font-size:.9rem;color:#6b6585}
+    .support-links a{margin:0 8px}
+
+    /* ===== Final CTA ===== */
+    .cta-final{
+      background:linear-gradient(135deg,var(--night1),var(--night3));color:#fff;text-align:center;
+      padding:90px 22px;position:relative;overflow:hidden;
+    }
+    .cta-final::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.35),transparent 60%)}
+    .cta-final h2{position:relative;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;line-height:1.5}
+    .cta-final p{position:relative;margin-top:14px;color:#cdc6e2;font-size:1rem}
+    .cta-final .btn{position:relative;margin-top:26px;padding:16px 36px;font-size:1.02rem}
+
+    /* ===== Footer ===== */
+    footer{background:var(--night1);color:#8b86a3;padding:36px 22px;text-align:center;font-size:.84rem}
+    footer .flinks{margin-bottom:14px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+    footer .flinks a{color:#b6aed0}
+    footer .flinks a:hover{color:#fff}
+
+    @media(max-width:600px){
+      nav .links a.hide-sm{display:none}
+      section{padding:60px 0}
+      .hero{padding:56px 22px 50px}
+      .hero .moon{width:64px;height:64px;right:8%}
+    }
   </style>
 </head>
 <body>
-  <h1>🍀 ツキ日記</h1>
-  <p class="lead">毎日3分、書くほど自分の「ツキ」に気づける日記アプリ。</p>
 
-  <h2>お問い合わせ・サポート</h2>
-  <p>ご意見・ご質問・不具合のご報告は、App Store のアプリページにある「App サポート」よりお願いいたします。</p>
-  <a class="btn" href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store で確認する</a>
+  <!-- ===== Nav ===== -->
+  <nav>
+    <div class="wrap row">
+      <a class="logo" href="#top">🍀 ツキ日記</a>
+      <div class="links">
+        <a class="hide-sm" href="#laws">月めぐり</a>
+        <a class="hide-sm" href="#journey">66日の変化</a>
+        <a class="hide-sm" href="#privacy">プライバシー</a>
+        <a class="hide-sm" href="#support">サポート</a>
+        <a class="btn small" href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store</a>
+      </div>
+    </div>
+  </nav>
 
-  <h2>よくあるご質問</h2>
-  <ul>
-    <li><strong>データはどこに保存されますか？</strong> すべてお客様の端末内に保存され、iCloud にサインイン済みの場合はお客様ご自身の iCloud にバックアップされます。開発者のサーバーには送信されません。</li>
-    <li><strong>課金の解約はできますか？</strong> できます。iPhone の「設定」＞ ご自身の Apple ID ＞「サブスクリプション」より、いつでも解約できます。</li>
-    <li><strong>記録を削除したい</strong> アプリ内の「設定」＞「全データを削除」から、すべての記録を削除できます。</li>
-  </ul>
+  <!-- ===== Hero ===== -->
+  <header class="hero" id="top">
+    <div class="moon"></div>
+    <div class="stars" id="stars"></div>
+    <div class="wrap">
+      <h1><span class="grad">66日で、<br>運を書きかえる。</span></h1>
+      <p class="sub">書くほど運を呼ぶ、毎日3分の日記アプリ。「ツキ」は運と月。夜にひらいて、書くたびに運を引き寄せる。</p>
+      <div class="cta">
+        <a class="btn" href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store でダウンロード</a>
+        <a class="btn ghost" href="#laws">機能を見る</a>
+      </div>
+      <p class="badge">無料ではじめる ・ プレミアムは3日間無料</p>
+      <div class="phone-hero reveal">
+        <div class="phone"><img src="img/02_home.png" alt="ツキ日記 ホーム画面" loading="lazy" /></div>
+      </div>
+    </div>
+  </header>
 
-  <h2>プライバシーポリシー・利用規約</h2>
-  <p><a href="privacy.html">プライバシーポリシーはこちら</a></p>
-  <p>利用規約は Apple の標準使用許諾契約（<a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">EULA</a>）に準拠します。</p>
+  <!-- ===== 月めぐり ===== -->
+  <section class="laws" id="laws">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">月めぐり / 8つの運のワーク</span>
+        <h2 class="sec">月の巡りにあわせて、<br>運を書き集める。</h2>
+        <p class="sec-lead">月の満ち欠け8相に、8つの運のテーマを配置しました。新月に願い、満月に感謝する。巡りの中で、自然と運を呼ぶ書き方が身につきます。</p>
+      </div>
+      <div class="laws-grid">
+        <div class="law reveal"><div class="em">🌑</div><div class="phase">新月・願い</div><h3>ワクワクする未来日記</h3><p>月の始まりに願いを立てる。鮮明に描いた未来ほど、脳はチャンスを探し始める。</p></div>
+        <div class="law reveal"><div class="em">🌒</div><div class="phase">三日月・ひらめき</div><h3>今日のひらめきノート</h3><p>細い月の光のようなひらめきは、マイナスの言葉を書き換えた心にだけ降りてくる。</p></div>
+        <div class="law reveal"><div class="em">🌓</div><div class="phase">上弦・ご縁</div><h3>今日のご縁ダイアリー</h3><p>運は、人が運んでくる。ご縁を記録する人は、いいご縁に恵まれていく。</p></div>
+        <div class="law reveal"><div class="em">🌗</div><div class="phase">下弦・みがき</div><h3>なりたい自分デザイン</h3><p>チャンスは人の印象を通ってやってくる。なりたい自分を先に演じた人が、そうなる。</p></div>
+        <div class="law reveal"><div class="em">🌔</div><div class="phase">十三夜・憧れ</div><h3>憧れ＆目標ノート</h3><p>憧れの人との差を言葉にすると、次の一歩が見える。目標が明晰な人に迷いはない。</p></div>
+        <div class="law reveal"><div class="em">🌖</div><div class="phase">十六夜・おすそわけ</div><h3>誰かを喜ばせた出来事</h3><p>誰かを喜ばせた分だけ、運は巡って返ってくる。与える人が、受け取る人。</p></div>
+        <div class="law reveal"><div class="em">🌕</div><div class="phase">満月・感謝</div><h3>今日のありがとうリスト</h3><p>感謝の量が、気づける運の量を決める。ありがとうを数えた日は、運のいい日になる。</p></div>
+        <div class="law reveal"><div class="em">🌘</div><div class="phase">有明・みちしるべ</div><h3>理想の未来レター</h3><p>終わりから逆算する人は、今日を無駄にしない。理想の未来が、次の巡りの一歩を決める。</p></div>
+      </div>
+    </div>
+  </section>
 
-  <footer>© 2026 ツキ日記</footer>
+  <!-- ===== How it works / 66日 ===== -->
+  <section id="journey">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">How it works</span>
+        <h2 class="sec">66日の変化は、<br>シンプルに設計されています。</h2>
+        <p class="sec-lead">21日で始められた自分をつくり、66日で「自分の流れ」にする。節目ごとに、変化を祝う小さな演出が待っています。</p>
+      </div>
+      <div class="phases">
+        <div class="phase-card reveal"><span class="day">Day 1-21</span><h3>ツキの起動期</h3><p>毎日1〜3分で、始められた自分をつくる。月めぐりのワークが少しずつ解放されていきます。</p></div>
+        <div class="phase-card reveal"><span class="day">Day 22-42</span><h3>ツキの定着期</h3><p>途切れても戻れる。自分のペースを知り、続く人に変わっていく。</p></div>
+        <div class="phase-card reveal"><span class="day">Day 43-66</span><h3>ツキの自走期</h3><p>記録から次の一手を選べるようになる。66日目、あなたの流れが完成します。</p></div>
+      </div>
+      <div class="milestones reveal">
+        <span class="ms">Day7 <b>7日間、続いた</b></span>
+        <span class="ms">Day21 <b>完走</b></span>
+        <span class="ms">Day42 <b>戻れる自分になった</b></span>
+        <span class="ms">Day66 <b>あなたの流れをつくった</b></span>
+      </div>
+      <div class="phones-row reveal">
+        <div class="phone"><img src="img/03_worksheet.png" alt="ワーク入力画面" loading="lazy" /></div>
+        <div class="phone"><img src="img/04_moon.png" alt="月めぐり画面" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="laws">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Features</span>
+        <h2 class="sec">書くほど、夢中になる。<br>続けるための仕掛け。</h2>
+        <p class="sec-lead">日記を「がんばる」ものから「書きたくなる」ものへ。習慣化の工夫が、アプリ全体に散りばめられています。</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat reveal"><div class="ic">🥚</div><h3>相棒ミツキ</h3><p>まだたまごの中で眠る相棒。あなたが書くたびに成長し、あなたのツキを映す存在になります。</p></div>
+        <div class="feat reveal"><div class="ic">🍀</div><h3>ツキ記録</h3><p>今日の「ツイてる！」を記録する。小さな運を書き集めると、運の流れが見えてきます。</p></div>
+        <div class="feat reveal"><div class="ic">📊</div><h3>週次レビュー</h3><p>1週間を月めぐりで振り返り、来週の運を呼ぶ一手を決める。</p></div>
+        <div class="feat reveal"><div class="ic">🗺️</div><h3>AI ツキの地図</h3><p>7つの質問に答えて、あなた専用の66日ロードマップを作成。日記本文は送信しません。</p></div>
+        <div class="feat reveal"><div class="ic">💍</div><h3>運気リング ＋ フリーズ</h3><p>1日の記録でリングが満タンに。7日連続ごとに休み1日分を補填し、連続記録を守ります。</p></div>
+        <div class="feat reveal"><div class="ic">☁️</div><h3>iCloud バックアップ</h3><p>日記はあなたのiCloudにバックアップ。機種変更や再インストールでも、記録を復元できます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Privacy ===== -->
+  <section class="privacy" id="privacy">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Privacy First</span>
+        <h2 class="sec">日記本文は、送信しません。</h2>
+        <p class="sec-lead">日記はあなたのもの。開発者はあなたの記録にアクセスできません。解析も、広告も、トラッキングも一切ありません。</p>
+      </div>
+      <div class="priv-grid">
+        <div class="priv-card reveal"><div class="ic">📱</div><h3>端末内に保存</h3><p>日記・プロフィール・設定は、あなたの端末内に保存されます。開発者のサーバーには送信されません。</p></div>
+        <div class="priv-card reveal"><div class="ic">☁️</div><h3>iCloud はあなた専有</h3><p>iCloudバックアップはあなたのApple IDに保存され、開発者はアクセス・閲覧できません。</p></div>
+        <div class="priv-card reveal"><div class="ic">🚫</div><h3>解析・広告SDK ゼロ</h3><p>アクセス解析・広告SDK・トラッキング技術は、一切使用していません。</p></div>
+      </div>
+      <div class="center reveal" style="margin-top:30px"><a class="btn" href="privacy.html">プライバシーポリシーを見る</a></div>
+    </div>
+  </section>
+
+  <!-- ===== 料金 ===== -->
+  <section class="price">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="sec">無料ではじめて、<br>のめり込んだら解放する。</h2>
+        <p class="sec-lead">まずは無料で。月めぐり全ワークと66日伴走が必要になったら、プレミアムへ。</p>
+      </div>
+      <div class="price-grid">
+        <div class="plan reveal">
+          <h3>無料プラン</h3>
+          <div class="amount">¥0</div><div class="unit">いつでも</div>
+          <ul>
+            <li>感謝・ひらめき・ツキログ</li>
+            <li>相棒ミツキとの記録</li>
+            <li>連続記録・運気リング</li>
+          </ul>
+        </div>
+        <div class="plan featured reveal">
+          <span class="tag">3日間無料 ・ おすすめ</span>
+          <h3>年額プラン</h3>
+          <div class="amount">¥4,800</div><div class="unit">/ 年（月あたり¥400）</div>
+          <ul>
+            <li>月めぐり 全8ワーク</li>
+            <li>週次レビュー ＋ 66日伴走</li>
+            <li>AI ツキの地図</li>
+            <li>未来便（21日・66日）</li>
+          </ul>
+        </div>
+        <div class="plan reveal">
+          <h3>買い切り</h3>
+          <div class="amount">¥9,800</div><div class="unit">一括・永久</div>
+          <ul>
+            <li>プレミアム全機能</li>
+            <li>サブスク不要</li>
+            <li>一度限りのご購入</li>
+          </ul>
+        </div>
+      </div>
+      <div class="center reveal" style="margin-top:34px"><a class="btn" href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store で確認する</a></div>
+      <p class="center" style="margin-top:14px;font-size:.8rem;color:var(--muted)">月額プラン（¥800/月）もご利用いただけます。価格はApp Storeの表示に準じます。</p>
+    </div>
+  </section>
+
+  <!-- ===== Support ===== -->
+  <section class="support" id="support">
+    <div class="wrap">
+      <div class="center reveal">
+        <span class="eyebrow">Support</span>
+        <h2 class="sec">よくあるご質問</h2>
+      </div>
+      <div class="faq">
+        <details><summary>データはどこに保存されますか？</summary><p>すべてお客様の端末内に保存され、iCloud にサインイン済みの場合はお客様ご自身の iCloud にバックアップされます。開発者のサーバーには送信されません。</p></details>
+        <details><summary>課金の解約はできますか？</summary><p>できます。iPhone の「設定」＞ ご自身の Apple ID ＞「サブスクリプション」より、いつでも解約できます。年額プランは3日間の無料トライアル中に解約すれば課金されません。</p></details>
+        <details><summary>記録を削除したい</summary><p>アプリ内の「設定」＞「全データを削除」から、すべての記録を削除できます。</p></details>
+      </div>
+      <div class="support-links reveal">
+        ご意見・ご質問・不具合のご報告は、App Store の「App サポート」よりお願いいたします。
+        <br><a href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store で確認する</a> ・ <a href="privacy.html">プライバシーポリシー</a> ・ <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">利用規約（EULA）</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta-final">
+    <div class="wrap">
+      <h2 class="reveal">今夜の3分から、<br>始めよう。</h2>
+      <p class="reveal">夜にひらいて、書くたびに運を引き寄せる。あなたの66日が、今夜動き出す。</p>
+      <a class="btn reveal" href="https://apps.apple.com/app/tsukinikki/id6787634943">App Store でダウンロード</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="flinks">
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">利用規約</a>
+      <a href="https://apps.apple.com/app/tsukinikki/id6787634943">お問い合わせ</a>
+    </div>
+    © 2026 ツキ日記
+  </footer>
+
+  <script>
+    // 星を生成
+    (function(){
+      var s=document.getElementById('stars');if(!s)return;
+      for(var i=0;i<48;i++){var d=document.createElement('span');
+        var sz=Math.random()*2+1;
+        d.style.width=sz+'px';d.style.height=sz+'px';
+        d.style.left=Math.random()*100+'%';d.style.top=Math.random()*100+'%';
+        d.style.animationDelay=(Math.random()*4)+'s';s.appendChild(d);}
+    })();
+    // スクロールフェードイン
+    (function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+      var io=new IntersectionObserver(function(es){es.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });},{threshold:.12});
+      els.forEach(function(e){io.observe(e);});
+    })();
+  </script>
 </body>
 </html>
